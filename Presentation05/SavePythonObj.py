@@ -1,7 +1,5 @@
 import json
 
-import json
-
 class Person:
     """
     A class to represent a person.
