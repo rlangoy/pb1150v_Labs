@@ -5,7 +5,7 @@ class Person:
     A class to represent a person.
     """
 
-    def __init__(self, name, age):
+    def __init__(self, name=None, age=None):
         """
         Construct a new 'Person' object.
 
@@ -21,7 +21,7 @@ class Person:
         :return: 'name is age years old'
         """
         return f'{self.name} is {self.age} years old'
-    def to_json(self, filename):
+    def saveObjectInfoAsJson(self, filename):
         """
         Save the 'Person' object to a JSON file.
 
@@ -30,8 +30,7 @@ class Person:
         with open(filename, 'w') as f:
             json.dump(self.__dict__, f)
 
-    @classmethod
-    def from_json(cls, filename):
+    def loadObjectInfoAsJson(self, filename):
         """
         Create a new 'Person' object from a JSON file.
 
@@ -40,7 +39,8 @@ class Person:
         """
         with open(filename, 'r') as f:
             data = json.load(f)
-        return cls(**data)
+        self.name=data['name']
+        self.age=data['age']
 
 if __name__ == "__main__":
     #Opprett en ny kunde
@@ -48,9 +48,11 @@ if __name__ == "__main__":
     print (kundeNr1)
 
     #Lagre dataene i filen person.json
-    kundeNr1.to_json('person.json')
+    kundeNr1.saveObjectInfoAsJson('person.json')
 
     #Opprette et nytt objekt med informasjonen fra person.json
-    KundeNr2=Person.from_json('person.json')
+    KundeNr2=Person()
+    KundeNr2.loadObjectInfoAsJson('person.json')
+
     print(KundeNr2)
 
