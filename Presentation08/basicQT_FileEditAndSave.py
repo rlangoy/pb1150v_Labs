@@ -1,20 +1,101 @@
 from PyQt6.QtWidgets import QPlainTextEdit,QFileDialog , QLabel , QPushButton,QMessageBox
 from PyQt6.QtGui import QIcon, QAction,QPixmap,QCloseEvent
 from PyQt6.QtWidgets import QApplication,QMainWindow
+from PyQt6.QtCore  import QSettings,QRect
 
 
 
 class mainWindow(QMainWindow):
 
+    fileName=None   # :str path+FileName to save/write
+
     def __init__(self):
         super().__init__()
-        print("Hi")
-        self.setWindowTitle("Velkommen")
+        # App Settings archive
+        self.settings = QSettings('USN', 'MyApp')
+
+        #Init the Window
+        self.setupWindow()
+
+
+    def _isWindowInsideScreen(self, geometry):
+        # Get the geometry of the primary screen
+        primaryScreen = QApplication.primaryScreen().availableGeometry()
+        # Check if the window's geometry is within the screen's geometry
+        return primaryScreen.contains(geometry.topLeft()) and primaryScreen.contains(geometry.bottomRight())
+
+
+    def setupWindow(self):
+        self.setWindowTitle("myNoteBook")
         self.setWindowIcon(QIcon("BlueSphere .webp"))
+        #default windows size
+        defaultWindowSize=QRect(0,0,400,300)
+        #If windows geomentry is not stored in settings use values from defaultWindowSize
+        geoRect=self.settings.value('Geometry',defaultWindowSize)
+        print(geoRect)
+        if(self._isWindowInsideScreen(geoRect) == False):
+            geoRect=defaultWindowSize
+
+        #Set the actual window Size
+        self.setGeometry(geoRect)
+
+        # Add Widdgets to MainForm
+        self.qTextEditField = QPlainTextEdit()
+        self.setCentralWidget(self.qTextEditField)
+
+        actionFileOpen = QAction("&Open File", self)
+        self.menuBar().addAction(actionFileOpen)
+        actionFileOpen.triggered.connect(self.openFile)  # type: ignore
+
+        actionFileSave = QAction("&Save File", self)
+        self.menuBar().addAction(actionFileSave)
+        actionFileSave.triggered.connect(self.saveFile)  # type: ignore
+
+
         self.show()
 
+    def openFile(self):
+        dlg = QFileDialog(self)
+        dlg.setNameFilter("Text files (*.txt *.py)")
+        dlg.setWindowTitle("Open File")  # Show save
+
+        if (dlg.exec()):  # exec and wait for dlg to close
+            self.fileName = dlg.selectedFiles()[0]
+            # Read the context of filePath to the variable called data
+            fileHandle = open(self.fileName, 'r')    # Open file for reading
+            strData = fileHandle.read()  # Read into a the variable strData
+            fileHandle.close()  # Close file
+
+            self.qTextEditField.setPlainText(strData)
+        else:
+            print("Åpne filen avbrutt")
+
+
+    def saveFile(self):
+
+        if (self.fileName == None) :
+            dlg = QFileDialog(self)
+            dlg.setAcceptMode(QFileDialog.AcceptMode.AcceptSave)
+            dlg.setNameFilter("Text files (*.txt *.py)")
+            dlg.setWindowTitle("Save File")  # Show save
+
+            if (dlg.exec()):  # exec and wait for dlg to close
+                self.fileName = dlg.selectedFiles()[0]
+            else:
+                return #Ret if save was canceled
+
+        # text to be written is contained in the variable textToWrite
+        strTextToWrite = self.qTextEditField.toPlainText()  # Text to save in file
+        fileHandle = open(self.fileName, 'w')  # Open file for writing
+        fileHandle.write(strTextToWrite)  # Write out text from string textToWrite
+        fileHandle.close()  # Close file
 
     def closeEvent(self, event :QCloseEvent ):
+        print("Program About to close")
+
+        #Store settings before exiting the application
+        self.settings.setValue('Geometry', self.geometry())
+
         # This function runs when the window is about to close
         reply = QMessageBox.question(self, 'Close Confirmation',
                                      "Are you sure you want to close the window?",
@@ -36,7 +117,6 @@ if __name__ == '__main__':
     window = mainWindow()   # Create QtMainWindow
 
 
-
     # Start the event loop.
     app.exec()               # Wait for program to be closed
 
@@ -48,7 +128,8 @@ Code to be used later
 
     window.setWindowTitle("Velkommen")
     window.setWindowIcon(QIcon("BlueSphere .webp"))
-    window.setGeometry(200, 100, 400, 300)
+    defaultWindowSize=QRect(0,0,400,300)
+    window.setGeometry(defaultWindowSize)
 
 
 class mainWindow(QMainWindow):
