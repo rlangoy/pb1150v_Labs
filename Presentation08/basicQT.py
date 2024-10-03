@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QPlainTextEdit,QFileDialog , QLabel , QPushButton,QCheckBox,QDial,QMessageBox
+from PyQt6.QtWidgets import QPlainTextEdit,QFileDialog,QLabel,QPushButton,QCheckBox,QDial,QMessageBox
 from PyQt6.QtGui import QIcon, QAction,QPixmap
 from PyQt6.QtWidgets import QApplication,QMainWindow
 
@@ -8,9 +8,8 @@ if __name__ == '__main__':
     # You need one (and only one) QApplication instance per application.
     app = QApplication([])
 
-    window = QDial()   # Create QtMainWindow
+    window = QMainWindow()   # Create QtMainWindow
     window.show()
-
 
     # Start the event loop.
     app.exec()               # Wait for program to be closed
@@ -51,25 +50,24 @@ Widgets events:
 
 
     def closeEvent(self, event :QCloseEvent ):
-        # This function runs when the window is about to close
-        reply = QMessageBox.question(self, 'Close Confirmation',
-                                     "Are you sure you want to close the window?",
-                                     QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
-                                     QMessageBox.StandardButton.No)
+        
+        #Store settings before exiting the application
+        self.settings.setValue('Geometry', self.geometry())
 
-        if reply == QMessageBox.StandardButton.Yes:
-            print("Window is closing.")
-            event.accept()  # Accept the close event
-        else:
-            event.ignore()  # Ignore the close event, keep the window open
-
-
+    #If windows geomentry is not stored in settings use values from defaultWindowSize 
+    geoRect=self.settings.value('Geometry',defaultWindowSize)
 
 
 
     window.setWindowTitle("Velkommen")
-    window.setWindowIcon(QIcon("BlueSphere .webp"))
-    window.setGeometry(200, 100, 400, 300)
+    window.setWindowIcon(QIcon("BlueSphere.ico"))
+    defaultWindowSize=QRect(0,0,400,300)
+    window.setGeometry(defaultWindowSize)
+
+    # App Settings archive
+    self.settings = QSettings('USN', 'MyApp')
+
+
 
 
 class mainWindow(QMainWindow):
@@ -78,23 +76,30 @@ class mainWindow(QMainWindow):
      self.qTextEditField = QPlainTextEdit()       
      self.setCentralWidget(self.qTextEditField)
 
-     actionFileOpen = QAction("&Open File", self)
-     self.menuBar().addAction(actionFileOpen)
-     actionFileOpen.triggered.connect(self.openFile) # type: ignore
+     strData='Velkommen'
+     self.qTextEditField.setPlainText(strData)           # Set text in   QPlainTextEdit
+     strInTextField = self.qTextEditField.toPlainText()  # Get Text from QPlainTextEdit
+     
     
-      
-    def openFile(self):
-    
-        dlg = QFileDialog(self)    
-        dlg.setNameFilter("Text files (*.txt *.py)")
-        dlg.setWindowTitle("Open File")  # Show save
-        
-        if( dlg.exec() ):   #exec and wait for dlg to close
-            fileNames = dlg.selectedFiles()
-            print(fileNames)
-            print("Nå skal vi åpne filen")
-        else:
-            print("Åpne filen avbrutt")
+     def saveFile(self):
+
+        if (self.fileName == None) :
+            dlg = QFileDialog(self)
+            dlg.setAcceptMode(QFileDialog.AcceptMode.AcceptSave)
+            dlg.setNameFilter("Text files (*.txt *.py)")
+            dlg.setWindowTitle("Save File")  # Show save
+
+            if (dlg.exec()):  # exec and wait for dlg to close
+                self.fileName = dlg.selectedFiles()[0]
+            else:
+                return #Ret if save was canceled
+
+        # text to be written is contained in the variable textToWrite
+        strTextToWrite = self.qTextEditField.toPlainText()  # Text to save in file
+
+
+
+
 
 
 
@@ -116,5 +121,22 @@ class mainWindow(QMainWindow):
 
 
 
+    def closeEvent(self, event :QCloseEvent ):
+        
+        #Store settings before exiting the application
+        self.settings.setValue('Geometry', self.geometry())
+
+    
+        # This function runs when the window is about to close
+        reply = QMessageBox.question(self, 'Close Confirmation',
+                                     "Are you sure you want to close the window?",
+                                     QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+                                     QMessageBox.StandardButton.No)
+
+        if reply == QMessageBox.StandardButton.Yes:
+            print("Window is closing.")
+            event.accept()  # Accept the close event
+        else:
+            event.ignore()  # Ignore the close event, keep the window open
 
 '''
