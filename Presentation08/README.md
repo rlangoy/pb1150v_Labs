@@ -3,10 +3,9 @@ Installation of PyQT6
 
 
 Fil :
-  basicQT.py
+  basicQT.py <br>
   Er en worksop template for bygging av en tekst editor
-
-  Emner som bli belyst:
+  Emner som bli belyst :
   
     Strukturen til et windows program
     App vs Window
@@ -42,11 +41,11 @@ Fil :
        QAction("&Open File", self).triggered.connect( customActionFunc)
        QT  -- .connect -- <- connects kobler til egen funksjon
    
-QFileDialog  - QT fil dialog.
-	QFileDialog().exec()   # Vise if __name__ == '__main__':  i if __name__ == '__main__':
-	QFileDialog.selectedFiles()[0]  <- Liste over valge filer
-   
-Save/load from file rep forelesning #4
+    QFileDialog  - QT fil dialog.
+		QFileDialog().exec()   # Vise if __name__ == '__main__':  i if __name__ == '__main__':
+		QFileDialog.selectedFiles()[0]  <- Liste over valge filer
+	   
+    Save/load from file rep forelesning #4
 
   
   
