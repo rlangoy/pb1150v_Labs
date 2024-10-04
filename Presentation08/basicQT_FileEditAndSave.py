@@ -6,7 +6,8 @@ from PyQt6.QtCore  import QSettings,QRect
 class mainWindow(QMainWindow):
 
     fileName=None            # :str path+FileName to save/write
-    textChanged=False   # chk if edit field has been changed
+    textChanged=False        # chk if edit field has been changed
+    settings : QSettings     # Configuration storage
 
     def __init__(self):
         super().__init__()
@@ -96,7 +97,6 @@ class mainWindow(QMainWindow):
             else:
                 return #Ret if save was canceled
 
-
         # text to be written is contained in the variable textToWrite
         strTextToWrite = self.qTextEditField.toPlainText()  # Text to save in file
         fileHandle = open(self.fileName, 'w')  # Open file for writing
@@ -124,7 +124,7 @@ class mainWindow(QMainWindow):
                 event.ignore()  # Ignore the close event, keep the window open
 
 
-# Run the program   
+# Run the program
 if __name__ == '__main__':
     # You need one (and only one) QApplication instance per application.
     app = QApplication([])
