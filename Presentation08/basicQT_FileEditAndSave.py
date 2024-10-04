@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QPlainTextEdit,QFileDialog , QLabel , QPushButton,QMessageBox
+from PyQt6.QtWidgets import QPlainTextEdit,QFileDialog , QLabel , QPushButton,QMessageBox,QStyle
 from PyQt6.QtGui import QIcon, QAction,QPixmap,QCloseEvent
 from PyQt6.QtWidgets import QApplication,QMainWindow
 from PyQt6.QtCore  import QSettings,QRect
@@ -45,12 +45,15 @@ class mainWindow(QMainWindow):
         self.qTextEditField.textChanged.connect(self.textEntering)
         self.setCentralWidget(self.qTextEditField)
 
-        actionFileOpen = QAction("&Open File", self)
-        self.menuBar().addAction(actionFileOpen)
+        fileMenu = self.menuBar().addMenu("File")
+        actionFileOpen = QAction(QIcon("folder_open_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg"), "&Open File",self)
+        #actionFileOpen = QAction(self.style().standardIcon(QStyle.StandardPixmap.SP_DirOpenIcon), "&Open File", self)  #    QT-standard Icons
+        fileMenu.addAction(actionFileOpen)
         actionFileOpen.triggered.connect(self.openFile)  # type: ignore
 
-        actionFileSave = QAction("&Save File", self)
-        self.menuBar().addAction(actionFileSave)
+        actionFileSave = QAction(QIcon("save_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg"), "&Save File", self)
+        #actionFileSave = QAction(self.style().standardIcon(QStyle.StandardPixmap.SP_DialogSaveButton), "&Save File", self)  # QT-standard Icons
+        fileMenu.addAction(actionFileSave)
         actionFileSave.triggered.connect(self.saveFile)  # type: ignore
 
         self.show()
