@@ -1,9 +1,7 @@
 Pre requirements
 Installation of PyQT6
 
-
-Fil :
-  basicQT.py <br>
+##  basicQT.py <br>
   Er en worksop template for bygging av en tekst editor
   Emner som bli belyst :
   
@@ -21,6 +19,7 @@ Fil :
     QWidgets properties
       window title
       Window Icon
+      QIcon(..)
       Window (size/pros) <- setGeometry(QRect)
       QRect..
     
