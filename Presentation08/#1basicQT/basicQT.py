@@ -1,5 +1,5 @@
 from PyQt6.QtWidgets import QPlainTextEdit,QFileDialog,QLabel,QPushButton,QCheckBox,QDial,QMessageBox
-from PyQt6.QtGui import QIcon, QAction,QPixmap
+from PyQt6.QtGui import QIcon, QAction,QPixmap,QDropEvent
 from PyQt6.QtWidgets import QApplication,QMainWindow
 
 
@@ -68,6 +68,18 @@ Widgets events:
     self.settings = QSettings('USN', 'MyApp')
 
 
+class myFilePlainTextEdit(QPlainTextEdit) :
+    def __init__(self):
+        super().__init__()
+        #run dropEvent if files is dropped
+        self.setAcceptDrops(True)    
+
+    def dropEvent(self, event: QDropEvent):
+        if event.mimeData().hasUrls():
+            listOfURLs=event.mimeData().urls()
+            #Get the first file name 
+            firstDroppedFileName=listOfURLs[0].toLocalFile() 
+            print(firstDroppedFileName)
 
 
 class mainWindow(QMainWindow):
@@ -107,15 +119,15 @@ class mainWindow(QMainWindow):
         def openFile(self):
                 # Read the context of filePath to the variable called data
                 filenameAndPath=f"C:\\Documents\\test.txt" # File to Open
-                fileHandle = open(filenameAndPath, 'r’)    # Open file for reading 
+                fileHandle = open(filenameAndPath, 'r')    # Open file for reading
                 strData = fileHandle.read()                # Read into a the variable strData
-                fileHandle.close()                         # Close file 
+                fileHandle.close()                         # Close file
         
         def saveFile(self): 
                 # text to be written is contained in the variable textToWrite
                 filenameAndPath=f"C:\\Documents\\test.txt" # File to Write
                 strTextToWrite="Dette skal lagres på disk"    # Text to save in file
-                fileHandle = open(filenameAndPath, 'w’)       # Open file for writing
+                fileHandle = open(filenameAndPath, 'w')       # Open file for writing
                 fileHandle.write(strTextToWrite)              # Write out text from string textToWrite
                 fileHandle.close()                            # Close file
 

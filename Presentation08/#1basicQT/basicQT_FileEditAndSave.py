@@ -1,7 +1,46 @@
 from PyQt6.QtWidgets import QPlainTextEdit,QFileDialog , QLabel , QPushButton,QMessageBox,QStyle
-from PyQt6.QtGui import QIcon, QAction,QPixmap,QCloseEvent
+from PyQt6.QtGui import QIcon, QAction,QPixmap,QCloseEvent,QDropEvent
 from PyQt6.QtWidgets import QApplication,QMainWindow
 from PyQt6.QtCore  import QSettings,QRect
+
+
+class myFilePlainTextEdit(QPlainTextEdit) :
+    def __init__(self):
+        super().__init__()
+        # run dropEvent if files is dropped
+        self.setAcceptDrops(True)
+
+    def dropEvent(self, event: QDropEvent):
+        if event.mimeData().hasUrls():
+            listOfURLs=event.mimeData().urls()
+            # Get the first file name in uls list
+            firstDroppedFileName=listOfURLs[0].toLocalFile()
+            print(firstDroppedFileName)
+
+            self.setTextFromFile(firstDroppedFileName)
+
+    # Get the file path of the dropped file(s)
+
+    def setTextFromFile(self,filenameAndPath: str):
+        # Repitisjon #04 ListerStringerOgFilbehandling slide 48
+
+        # Read the context of filePath to the variable called data
+        # filenameAndPath = f"C:\\Documents\\test.txt"  # File to Open
+
+        fileHandle = open(filenameAndPath, 'r')    # Open file for reading
+        strData = fileHandle.read()                # Read into a the variable strData
+        fileHandle.close()                         # Close file
+
+        self.setPlainText(strData)  # Show text in QPlainTextEdit
+
+    def writeTextToFile(self,filenameAndPath: str):
+        strTextToWrite = self.toPlainText()      # Text to save in file
+        fileHandle = open(filenameAndPath, 'w')  # Open file for writing
+        fileHandle.write(strTextToWrite)         # Write out text from string textToWrite
+        fileHandle.close()                       # Close file
+
+
+
 
 class mainWindow(QMainWindow):
 
@@ -16,6 +55,7 @@ class mainWindow(QMainWindow):
 
         #Init the Window
         self.setupWindow()
+
 
 
     def _isWindowInsideScreen(self, geometry):
@@ -41,7 +81,7 @@ class mainWindow(QMainWindow):
         self.setGeometry(geoRect)
 
         # Add Widdgets to MainForm
-        self.qTextEditField = QPlainTextEdit()
+        self.qTextEditField = myFilePlainTextEdit()
         self.qTextEditField.textChanged.connect(self.textEntering)
         self.setCentralWidget(self.qTextEditField)
 
@@ -75,12 +115,8 @@ class mainWindow(QMainWindow):
             print("Åpne filen avbrutt")
             return
 
-        # Read the context of filePath to the variable called data
-        fileHandle = open(self.fileName, 'r')    # Open file for reading
-        strData = fileHandle.read()  # Read into a the variable strData
-        fileHandle.close()  # Close file
-
-        self.qTextEditField.setPlainText(strData)
+        print(self.qTextEditField)
+        self.qTextEditField.setTextFromFile(self.fileName)   # Read text into text field
         self.textChanged = False
 
 
@@ -98,13 +134,10 @@ class mainWindow(QMainWindow):
                 self.setWindowTitle("myNoteBook FileName : " + self.fileName.rsplit('/', 1)[-1])
 
             else:
-                return #Ret if save was canceled
+                return  # Ret if save was canceled
 
         # text to be written is contained in the variable textToWrite
-        strTextToWrite = self.qTextEditField.toPlainText()  # Text to save in file
-        fileHandle = open(self.fileName, 'w')  # Open file for writing
-        fileHandle.write(strTextToWrite)  # Write out text from string textToWrite
-        fileHandle.close()  # Close file
+        self.qTextEditField.writeTextToFile(self.fileName)
         self.textChanged = False
 
     def closeEvent(self, event :QCloseEvent ):
