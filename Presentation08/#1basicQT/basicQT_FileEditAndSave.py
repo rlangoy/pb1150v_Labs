@@ -4,7 +4,7 @@ from PyQt6.QtWidgets import QApplication,QMainWindow
 from PyQt6.QtCore  import QSettings,QRect
 
 
-class myFilePlainTextEdit(QPlainTextEdit) :
+class FileQPlainTextEdit(QPlainTextEdit) :
     def __init__(self):
         super().__init__()
         # run dropEvent if files is dropped
@@ -15,15 +15,14 @@ class myFilePlainTextEdit(QPlainTextEdit) :
             listOfURLs=event.mimeData().urls()
             # Get the first file name in uls list
             firstDroppedFileName=listOfURLs[0].toLocalFile()
-            print(firstDroppedFileName)
 
             self.setTextFromFile(firstDroppedFileName)
 
     # Get the file path of the dropped file(s)
 
     def setTextFromFile(self,filenameAndPath: str):
-        # Repitisjon #04 ListerStringerOgFilbehandling slide 48
 
+        # Repitisjon #04 ListerStringerOgFilbehandling slide 48
         # Read the context of filePath to the variable called data
         # filenameAndPath = f"C:\\Documents\\test.txt"  # File to Open
 
@@ -40,8 +39,6 @@ class myFilePlainTextEdit(QPlainTextEdit) :
         fileHandle.close()                       # Close file
 
 
-
-
 class mainWindow(QMainWindow):
 
     fileName=None            # :str path+FileName to save/write
@@ -55,8 +52,6 @@ class mainWindow(QMainWindow):
 
         #Init the Window
         self.setupWindow()
-
-
 
     def _isWindowInsideScreen(self, geometry):
         # Get the geometry of the primary screen
@@ -81,7 +76,7 @@ class mainWindow(QMainWindow):
         self.setGeometry(geoRect)
 
         # Add Widdgets to MainForm
-        self.qTextEditField = myFilePlainTextEdit()
+        self.qTextEditField = FileQPlainTextEdit()
         self.qTextEditField.textChanged.connect(self.textEntering)
         self.setCentralWidget(self.qTextEditField)
 
