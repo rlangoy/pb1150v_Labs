@@ -1,7 +1,5 @@
 @echo off
 
-
-
 set "folderPath=..\dist"
 
 :: Check if the folder exists
@@ -24,7 +22,28 @@ if %errorlevel% neq 0 (
     exit /b 1
 )
 
-echo Check if the specified Python module pyinstaller is installed
+
+echo Check if the  Python module PyQt6 is installed
+
+python -c "import pkgutil; exit(0 if pkgutil.find_loader('PyQt6') else 1)"
+if errorlevel 1 (
+    echo The Python module 'PyQt6' is not installed.
+    echo Installing 'PyQt6'...
+    python -m pip install pyqt6
+    python -c "import pkgutil; exit(0 if pkgutil.find_loader('PyQt6') else 1)"
+
+    if errorlevel  1 (
+        echo Failed to install the 'PyQt6' module.
+        exit /b 1
+    ) else (
+        echo The 'PyQt6' module was successfully installed.
+    )
+) else (
+    echo The Python module 'PyQt6' is already installed.
+)
+
+
+echo Check if the Python module pyinstaller is installed
 
 
 echo Check if pyinstaller.exe is present in the system
