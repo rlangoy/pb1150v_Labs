@@ -5,10 +5,15 @@ from PyQt6.QtCore  import QSettings,QRect
 
 
 class FileQPlainTextEdit(QPlainTextEdit) :
+    textChanged = False  # chk if edit field has been changed
     def __init__(self):
         super().__init__()
         # run dropEvent if files is dropped
         self.setAcceptDrops(True)
+        super().textChanged.connect(self.textEntering)
+
+    def textEntering(self):
+        self.textChanged = True
 
     def dropEvent(self, event: QDropEvent):
         if event.mimeData().hasUrls():
@@ -31,18 +36,19 @@ class FileQPlainTextEdit(QPlainTextEdit) :
         fileHandle.close()                         # Close file
 
         self.setPlainText(strData)  # Show text in QPlainTextEdit
+        self.textChanged = False
 
     def writeTextToFile(self,filenameAndPath: str):
         strTextToWrite = self.toPlainText()      # Text to save in file
         fileHandle = open(filenameAndPath, 'w')  # Open file for writing
         fileHandle.write(strTextToWrite)         # Write out text from string textToWrite
         fileHandle.close()                       # Close file
+        self.textChanged = False
 
 
 class mainWindow(QMainWindow):
 
     fileName=None            # :str path+FileName to save/write
-    textChanged=False        # chk if edit field has been changed
     settings : QSettings     # Configuration storage
 
     def __init__(self):
@@ -62,7 +68,7 @@ class mainWindow(QMainWindow):
 
     def setupWindow(self):
 
-        self.setWindowTitle("myNoteBook")
+        self.setWindowTitle("myEditor")
         self.setWindowIcon(QIcon("BlueSphere.ico"))
 
         #default windows size
@@ -77,7 +83,6 @@ class mainWindow(QMainWindow):
 
         # Add Widdgets to MainForm
         self.qTextEditField = FileQPlainTextEdit()
-        self.qTextEditField.textChanged.connect(self.textEntering)
         self.setCentralWidget(self.qTextEditField)
 
         fileMenu = self.menuBar().addMenu("File")
@@ -92,8 +97,6 @@ class mainWindow(QMainWindow):
         actionFileSave.triggered.connect(self.saveFile)  # type: ignore
 
         self.show()
-    def textEntering(self):
-        self.textChanged=True
 
     def openFile(self):
 
@@ -112,7 +115,7 @@ class mainWindow(QMainWindow):
 
         print(self.qTextEditField)
         self.qTextEditField.setTextFromFile(self.fileName)   # Read text into text field
-        self.textChanged = False
+
 
 
     def saveFile(self):
@@ -133,7 +136,7 @@ class mainWindow(QMainWindow):
 
         # text to be written is contained in the variable textToWrite
         self.qTextEditField.writeTextToFile(self.fileName)
-        self.textChanged = False
+
 
     def closeEvent(self, event :QCloseEvent ):
 
@@ -141,7 +144,7 @@ class mainWindow(QMainWindow):
         self.settings.setValue('Geometry', self.geometry())
 
         #Ask if unsaved changes is detected
-        if(self.textChanged) :
+        if(self.qTextEditField.textChanged) :
             # This function runs when the window is about to close
             reply = QMessageBox.question(self, 'Unsaved text',
                                          f"Are you sure you want to close the window<br>without saving first?",
