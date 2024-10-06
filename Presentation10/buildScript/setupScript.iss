@@ -33,7 +33,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [PreCompile]
-Name: "PreCompileBuild.bat"; Flags: redirectoutput abortonerror cmdprompt
+Name: "PreCompileBuild.bat"; Flags: redirectoutput abortonerror
 
 [Files]
 Source: "..\dist\FileEditAndSave\FileEditAndSave.exe"; DestDir: "{app}"; Flags: ignoreversion
@@ -41,6 +41,7 @@ Source: "..\dist\FileEditAndSave\_internal\*"; DestDir: "{app}\_internal\"; Flag
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 Source: "..\dist\FileEditAndSave\_internal\folder_open_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\dist\FileEditAndSave\_internal\save_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\BlueSphere.ico"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
