@@ -32,6 +32,9 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
+[PreCompile]
+Name: "PreCompileBuild.bat"; Flags: redirectoutput abortonerror cmdprompt
+
 [Files]
 Source: "..\dist\FileEditAndSave\FileEditAndSave.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\dist\FileEditAndSave\_internal\*"; DestDir: "{app}\_internal\"; Flags: ignoreversion recursesubdirs createallsubdirs
@@ -46,5 +49,4 @@ Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
 
-[PreCompile]
-Name: "PreCompileBuild.bat"; Flags: redirectoutput abortonerror cmdprompt
+
