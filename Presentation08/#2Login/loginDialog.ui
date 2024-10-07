@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>LoginDialog</class>
+ <widget class="QDialog" name="LoginDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -14,7 +14,8 @@
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: #FFFFFF;</string>
+   <string notr="true">background-color: #FFFFFF;
+</string>
   </property>
   <property name="modal">
    <bool>true</bool>
@@ -35,6 +36,9 @@
      <weight>50</weight>
      <bold>false</bold>
     </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>Login</string>
@@ -157,11 +161,24 @@ padding-left: 40px;
   <widget class="QLabel" name="labelVisibility">
    <property name="geometry">
     <rect>
-     <x>380</x>
-     <y>256</y>
+     <x>372</x>
+     <y>245</y>
      <width>31</width>
-     <height>16</height>
+     <height>37</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel {
+      border-radius: 6px;
+  }
+
+QLabel:hover {
+                background-color:#E0E0E0;
+            }
+QLabel:pressed {
+                background-color:#C0C0C0;
+            }
+</string>
    </property>
    <property name="text">
     <string/>
@@ -186,9 +203,19 @@ padding-left: 40px;
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">border: 1px solid red;
-border-radius: 20px;
-background-color: #FF7A7A;</string>
+    <string notr="true">QPushButton {
+              border: 1px  #FF7A7A;
+			 border-radius: 20px;
+			 background-color: #FF7A7A;
+            }            
+QPushButton:hover {
+                background-color:#F07070;;
+            }
+
+QPushButton:pressed  {
+                background-color:#C07070;;
+            }
+</string>
    </property>
    <property name="text">
     <string>Login</string>
@@ -219,7 +246,7 @@ background-color: #FF7A7A;</string>
      <x>0</x>
      <y>240</y>
      <width>631</width>
-     <height>231</height>
+     <height>232</height>
     </rect>
    </property>
    <property name="text">
