@@ -85,12 +85,12 @@ class mainWindow(QMainWindow):
         self.setCentralWidget(self.qTextEditField)
 
         fileMenu = self.menuBar().addMenu("File")
-        actionFileOpen = QAction(QIcon("folder_open_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg"), "&Open File",self)
+        actionFileOpen = QAction(QIcon("folder_open.svg"), "&Open File",self)
         #actionFileOpen = QAction(self.style().standardIcon(QStyle.StandardPixmap.SP_DirOpenIcon), "&Open File", self)  #    QT-standard Icons
         fileMenu.addAction(actionFileOpen)
         actionFileOpen.triggered.connect(self.openFile)  # type: ignore
 
-        actionFileSave = QAction(QIcon("save_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg"), "&Save File", self)
+        actionFileSave = QAction(QIcon("save.svg"), "&Save File", self)
         #actionFileSave = QAction(self.style().standardIcon(QStyle.StandardPixmap.SP_DialogSaveButton), "&Save File", self)  # QT-standard Icons
         fileMenu.addAction(actionFileSave)
         actionFileSave.triggered.connect(self.saveFile)  # type: ignore
