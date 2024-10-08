@@ -1,7 +1,13 @@
 from PyQt6.QtWidgets import QPlainTextEdit,QFileDialog,QLabel,QPushButton,QCheckBox,QDial,QMessageBox
 from PyQt6.QtGui import QIcon, QAction,QPixmap,QDropEvent
-from PyQt6.QtWidgets import QApplication,QMainWindow
+from PyQt6.QtWidgets import QApplication,QMainWindow,QDialog
 from PyQt6 import uic,QtGui
+
+#
+# Lag en Python filen loginDialog.py ved å kjøre (i PyCharm terminalen):
+#    pyuic6 -x loginDialog.ui -o loginDialog.py
+#
+
 
 # Run the program
 if __name__ == '__main__':
