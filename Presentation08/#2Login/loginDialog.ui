@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>631</width>
+    <width>627</width>
     <height>469</height>
    </rect>
   </property>
@@ -129,6 +129,7 @@ border-style: solid;
 border: 2px solid gray;
 border-radius: 8px;
 padding-left: 40px;
+padding-right: 35px;
 
 </string>
    </property>
@@ -136,13 +137,13 @@ padding-left: 40px;
     <set>Qt::ImhHiddenText|Qt::ImhNoAutoUppercase|Qt::ImhNoPredictiveText|Qt::ImhSensitiveData</set>
    </property>
    <property name="text">
-    <string>Rune</string>
+    <string>Runecxcxcxzcxzcv</string>
    </property>
    <property name="echoMode">
     <enum>QLineEdit::Password</enum>
    </property>
   </widget>
-  <widget class="QLabel" name="label_4">
+  <widget class="QLabel" name="labIconEmail">
    <property name="geometry">
     <rect>
      <x>380</x>
@@ -158,33 +159,26 @@ padding-left: 40px;
     <pixmap>Images/mail.svg</pixmap>
    </property>
   </widget>
-  <widget class="QLabel" name="labelVisibility">
+  <widget class="QLabel" name="labIconLock">
    <property name="geometry">
     <rect>
-     <x>372</x>
-     <y>245</y>
-     <width>31</width>
-     <height>37</height>
+     <x>376</x>
+     <y>250</y>
+     <width>30</width>
+     <height>30</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">QLabel {
-      border-radius: 6px;
-  }
-
-QLabel:hover {
-                background-color:#E0E0E0;
-            }
-QLabel:pressed {
-                background-color:#C0C0C0;
-            }
-</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap>Images/visibility.svg</pixmap>
+    <pixmap>Images/lock.svg</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton">
@@ -220,6 +214,12 @@ QPushButton:pressed  {
    <property name="text">
     <string>Login</string>
    </property>
+   <property name="iconSize">
+    <size>
+     <width>18</width>
+     <height>18</height>
+    </size>
+   </property>
   </widget>
   <widget class="QLabel" name="label_5">
    <property name="geometry">
@@ -246,7 +246,7 @@ QPushButton:pressed  {
      <x>0</x>
      <y>240</y>
      <width>631</width>
-     <height>232</height>
+     <height>234</height>
     </rect>
    </property>
    <property name="text">
@@ -259,6 +259,71 @@ QPushButton:pressed  {
     <bool>true</bool>
    </property>
   </widget>
+  <widget class="QLabel" name="btnIcoVisibility">
+   <property name="geometry">
+    <rect>
+     <x>587</x>
+     <y>245</y>
+     <width>31</width>
+     <height>37</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel {
+      border-radius: 6px;
+  }
+
+QLabel:hover {
+                background-color:#E0E0E0;
+            }
+QLabel:pressed {
+                background-color:#C0C0C0;
+            }
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap>Images/visibility.svg</pixmap>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_2">
+   <property name="geometry">
+    <rect>
+     <x>587</x>
+     <y>247</y>
+     <width>31</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+      border-radius: 6px;
+  }
+
+QPushButton:hover {
+                background-color:#E0E0E0;
+            }
+QPushButton:pressed {
+                background-color:#C0C0C0;
+            }
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>Images/visibility.svg</normaloff>Images/visibility.svg</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>30</width>
+     <height>30</height>
+    </size>
+   </property>
+  </widget>
   <zorder>label_6</zorder>
   <zorder>label_5</zorder>
   <zorder>label</zorder>
@@ -266,9 +331,11 @@ QPushButton:pressed  {
   <zorder>label_3</zorder>
   <zorder>lineEditEmail</zorder>
   <zorder>lineEditPassword</zorder>
-  <zorder>label_4</zorder>
-  <zorder>labelVisibility</zorder>
+  <zorder>labIconEmail</zorder>
+  <zorder>labIconLock</zorder>
   <zorder>pushButton</zorder>
+  <zorder>btnIcoVisibility</zorder>
+  <zorder>pushButton_2</zorder>
  </widget>
  <resources/>
  <connections/>
