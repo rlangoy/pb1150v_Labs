@@ -12,7 +12,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_LoginDialog(object):
     def setupUi(self, LoginDialog):
         LoginDialog.setObjectName("LoginDialog")
-        LoginDialog.resize(631, 469)
+        LoginDialog.resize(627, 469)
         LoginDialog.setStyleSheet("background-color: #FFFFFF;\n"
 "")
         LoginDialog.setModal(True)
@@ -63,39 +63,31 @@ class Ui_LoginDialog(object):
 "border: 2px solid gray;\n"
 "border-radius: 8px;\n"
 "padding-left: 40px;\n"
-"\n"
+"padding-right: 35px;\n"
+"padding-bottom: 3px;\n"
 "")
         self.lineEditPassword.setInputMethodHints(QtCore.Qt.InputMethodHint.ImhHiddenText|QtCore.Qt.InputMethodHint.ImhNoAutoUppercase|QtCore.Qt.InputMethodHint.ImhNoPredictiveText|QtCore.Qt.InputMethodHint.ImhSensitiveData)
         self.lineEditPassword.setEchoMode(QtWidgets.QLineEdit.EchoMode.Password)
         self.lineEditPassword.setObjectName("lineEditPassword")
-        self.label_4 = QtWidgets.QLabel(parent=LoginDialog)
-        self.label_4.setGeometry(QtCore.QRect(380, 163, 31, 20))
-        self.label_4.setText("")
-        self.label_4.setPixmap(QtGui.QPixmap("Images/mail.svg"))
-        self.label_4.setObjectName("label_4")
-        self.labelVisibility = QtWidgets.QLabel(parent=LoginDialog)
-        self.labelVisibility.setGeometry(QtCore.QRect(372, 245, 31, 37))
-        self.labelVisibility.setStyleSheet("QLabel {\n"
-"      border-radius: 6px;\n"
-"  }\n"
-"\n"
-"QLabel:hover {\n"
-"                background-color:#E0E0E0;\n"
-"            }\n"
-"QLabel:pressed {\n"
-"                background-color:#C0C0C0;\n"
-"            }\n"
-"")
-        self.labelVisibility.setText("")
-        self.labelVisibility.setPixmap(QtGui.QPixmap("Images/visibility.svg"))
-        self.labelVisibility.setObjectName("labelVisibility")
-        self.pushButton = QtWidgets.QPushButton(parent=LoginDialog)
-        self.pushButton.setGeometry(QtCore.QRect(370, 370, 250, 51))
+        self.labIconEmail = QtWidgets.QLabel(parent=LoginDialog)
+        self.labIconEmail.setGeometry(QtCore.QRect(380, 163, 31, 20))
+        self.labIconEmail.setText("")
+        self.labIconEmail.setPixmap(QtGui.QPixmap("Images/mail.svg"))
+        self.labIconEmail.setObjectName("labIconEmail")
+        self.labIconLock = QtWidgets.QLabel(parent=LoginDialog)
+        self.labIconLock.setGeometry(QtCore.QRect(376, 250, 30, 25))
+        self.labIconLock.setStyleSheet("")
+        self.labIconLock.setText("")
+        self.labIconLock.setPixmap(QtGui.QPixmap("Images/lock.svg"))
+        self.labIconLock.setScaledContents(True)
+        self.labIconLock.setObjectName("labIconLock")
+        self.btnLogin = QtWidgets.QPushButton(parent=LoginDialog)
+        self.btnLogin.setGeometry(QtCore.QRect(370, 370, 250, 51))
         font = QtGui.QFont()
         font.setFamily("Sans Serif Collection")
         font.setPointSize(12)
-        self.pushButton.setFont(font)
-        self.pushButton.setStyleSheet("QPushButton {\n"
+        self.btnLogin.setFont(font)
+        self.btnLogin.setStyleSheet("QPushButton {\n"
 "              border: 1px  #FF7A7A;\n"
 "             border-radius: 20px;\n"
 "             background-color: #FF7A7A;\n"
@@ -108,7 +100,8 @@ class Ui_LoginDialog(object):
 "                background-color:#C07070;;\n"
 "            }\n"
 "")
-        self.pushButton.setObjectName("pushButton")
+        self.btnLogin.setIconSize(QtCore.QSize(18, 18))
+        self.btnLogin.setObjectName("btnLogin")
         self.label_5 = QtWidgets.QLabel(parent=LoginDialog)
         self.label_5.setGeometry(QtCore.QRect(10, 20, 381, 301))
         self.label_5.setText("")
@@ -116,11 +109,46 @@ class Ui_LoginDialog(object):
         self.label_5.setScaledContents(False)
         self.label_5.setObjectName("label_5")
         self.label_6 = QtWidgets.QLabel(parent=LoginDialog)
-        self.label_6.setGeometry(QtCore.QRect(0, 240, 631, 232))
+        self.label_6.setGeometry(QtCore.QRect(0, 240, 631, 234))
         self.label_6.setText("")
         self.label_6.setPixmap(QtGui.QPixmap("Images/login_bottom.png"))
         self.label_6.setScaledContents(True)
         self.label_6.setObjectName("label_6")
+        self.btnIcoVisibility = QtWidgets.QLabel(parent=LoginDialog)
+        self.btnIcoVisibility.setGeometry(QtCore.QRect(587, 245, 31, 37))
+        self.btnIcoVisibility.setStyleSheet("QLabel {\n"
+"      border-radius: 6px;\n"
+"  }\n"
+"\n"
+"QLabel:hover {\n"
+"                background-color:#E0E0E0;\n"
+"            }\n"
+"QLabel:pressed {\n"
+"                background-color:#C0C0C0;\n"
+"            }\n"
+"")
+        self.btnIcoVisibility.setText("")
+        self.btnIcoVisibility.setPixmap(QtGui.QPixmap("Images/visibility.svg"))
+        self.btnIcoVisibility.setObjectName("btnIcoVisibility")
+        self.btnVisibility = QtWidgets.QPushButton(parent=LoginDialog)
+        self.btnVisibility.setGeometry(QtCore.QRect(587, 245, 31, 37))
+        self.btnVisibility.setStyleSheet("QPushButton {\n"
+"      border-radius: 6px;\n"
+"  }\n"
+"\n"
+"QPushButton:hover {\n"
+"                background-color:#E0E0E0;\n"
+"            }\n"
+"QPushButton:pressed {\n"
+"                background-color:#C0C0C0;\n"
+"            }\n"
+"")
+        self.btnVisibility.setText("")
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("Images/visibility.svg"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.btnVisibility.setIcon(icon)
+        self.btnVisibility.setIconSize(QtCore.QSize(30, 30))
+        self.btnVisibility.setObjectName("btnVisibility")
         self.label_6.raise_()
         self.label_5.raise_()
         self.label.raise_()
@@ -128,9 +156,11 @@ class Ui_LoginDialog(object):
         self.label_3.raise_()
         self.lineEditEmail.raise_()
         self.lineEditPassword.raise_()
-        self.label_4.raise_()
-        self.labelVisibility.raise_()
-        self.pushButton.raise_()
+        self.labIconEmail.raise_()
+        self.labIconLock.raise_()
+        self.btnLogin.raise_()
+        self.btnIcoVisibility.raise_()
+        self.btnVisibility.raise_()
 
         self.retranslateUi(LoginDialog)
         QtCore.QMetaObject.connectSlotsByName(LoginDialog)
@@ -142,8 +172,8 @@ class Ui_LoginDialog(object):
         self.label_2.setText(_translate("LoginDialog", "Email"))
         self.label_3.setText(_translate("LoginDialog", "Password"))
         self.lineEditEmail.setText(_translate("LoginDialog", "rul@usn.no"))
-        self.lineEditPassword.setText(_translate("LoginDialog", "Rune"))
-        self.pushButton.setText(_translate("LoginDialog", "Login"))
+        self.lineEditPassword.setText(_translate("LoginDialog", "Runecxcxcxzcxzcv"))
+        self.btnLogin.setText(_translate("LoginDialog", "Login"))
 
 
 if __name__ == "__main__":
