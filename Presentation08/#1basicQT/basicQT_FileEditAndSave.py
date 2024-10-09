@@ -1,7 +1,7 @@
 from PyQt6.QtWidgets import QPlainTextEdit,QFileDialog , QLabel , QPushButton,QMessageBox,QStyle
 from PyQt6.QtGui import QIcon, QAction,QPixmap,QCloseEvent,QDropEvent
 from PyQt6.QtWidgets import QApplication,QMainWindow
-from PyQt6.QtCore  import QSettings,QRect
+from PyQt6.QtCore import QSettings,QRect
 
 class FileQPlainTextEdit(QPlainTextEdit) :
     textChanged = False  # chk if edit field has been changed
