@@ -130,7 +130,7 @@ border: 2px solid gray;
 border-radius: 8px;
 padding-left: 40px;
 padding-right: 35px;
-
+padding-bottom: 3px;
 </string>
    </property>
    <property name="inputMethodHints">
@@ -165,7 +165,7 @@ padding-right: 35px;
      <x>376</x>
      <y>250</y>
      <width>30</width>
-     <height>30</height>
+     <height>25</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -181,7 +181,7 @@ padding-right: 35px;
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="btnLogin">
    <property name="geometry">
     <rect>
      <x>370</x>
@@ -288,13 +288,13 @@ QLabel:pressed {
     <pixmap>Images/visibility.svg</pixmap>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="btnVisibility">
    <property name="geometry">
     <rect>
      <x>587</x>
-     <y>247</y>
+     <y>245</y>
      <width>31</width>
-     <height>34</height>
+     <height>37</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -333,9 +333,9 @@ QPushButton:pressed {
   <zorder>lineEditPassword</zorder>
   <zorder>labIconEmail</zorder>
   <zorder>labIconLock</zorder>
-  <zorder>pushButton</zorder>
+  <zorder>btnLogin</zorder>
   <zorder>btnIcoVisibility</zorder>
-  <zorder>pushButton_2</zorder>
+  <zorder>btnVisibility</zorder>
  </widget>
  <resources/>
  <connections/>
