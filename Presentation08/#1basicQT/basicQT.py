@@ -1,7 +1,7 @@
-from PyQt6.QtWidgets import QPlainTextEdit,QFileDialog,QLabel,QPushButton,QCheckBox,QDial,QMessageBox
+from PyQt6.QtWidgets import QPlainTextEdit,QFileDialog,QLabel,QPushButton,QCheckBox,QDial,QMessageBox,QLineEdit
 from PyQt6.QtGui import QIcon, QAction,QPixmap,QDropEvent
-from PyQt6.QtWidgets import QApplication,QMainWindow
-
+from PyQt6.QtWidgets import QApplication,QMainWindow,QDialog
+from PyQt6.QtCore import QRect
 
 # Run the program
 if __name__ == '__main__':
