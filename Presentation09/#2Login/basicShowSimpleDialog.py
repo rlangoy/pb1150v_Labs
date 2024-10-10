@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QPlainTextEdit,QFileDialog,QLabel,QPushButton,QCheckBox,QDial,QMessageBox
 from PyQt6.QtGui import QIcon, QAction,QPixmap,QDropEvent
-from PyQt6.QtWidgets import QApplication,QMainWindow,QDialog
+from PyQt6.QtWidgets import QApplication,QStyleFactory,QMainWindow,QDialog
 from PyQt6 import uic,QtGui
 
 #
@@ -13,6 +13,9 @@ from PyQt6 import uic,QtGui
 if __name__ == '__main__':
     # You need one (and only one) QApplication instance per application.
     app = QApplication([])
+    app.setStyle("Windows")
+    print(f"Keys: {QStyleFactory.keys()}")
+
     #dialog=uic.loadUi('loginDialog.ui')
     dialog = uic.loadUi('SimpleLoginDialog.ui')
     dialog.show()
