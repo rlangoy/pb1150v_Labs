@@ -161,6 +161,7 @@ class mainWindow(QMainWindow):
 if __name__ == '__main__':
     # You need one (and only one) QApplication instance per application.
     app = QApplication([])
+
     app.setWindowIcon(QIcon("BlueSphere.ico"))
 
     window = mainWindow()   # Create QtMainWindow
