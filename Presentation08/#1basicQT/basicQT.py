@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QPlainTextEdit,QFileDialog,QLabel,QPushButton,QCheckBox,QDial,QMessageBox,QLineEdit
+from PyQt6.QtWidgets import QStyleFactory,QPlainTextEdit,QFileDialog,QLabel,QPushButton,QCheckBox,QDial,QMessageBox,QLineEdit
 from PyQt6.QtGui import QIcon, QAction,QPixmap,QDropEvent
 from PyQt6.QtWidgets import QApplication,QMainWindow,QDialog
 from PyQt6.QtCore import QRect
@@ -7,6 +7,7 @@ from PyQt6.QtCore import QRect
 if __name__ == '__main__':
     # You need one (and only one) QApplication instance per application.
     app = QApplication([])
+
 
     window = QMainWindow()   # Create QtMainWindow
     window.show()
