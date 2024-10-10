@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QPlainTextEdit,QFileDialog,QLabel,QTableWidgetItem,QTableView ,QPushButton,QCheckBox,QDial,QMessageBox,QLineEdit,QTableWidget
+from PyQt6.QtWidgets import QStyleFactory,QPlainTextEdit,QFileDialog,QLabel,QTableWidgetItem,QTableView ,QPushButton,QCheckBox,QDial,QMessageBox,QLineEdit,QTableWidget
 from PyQt6.QtGui import QIcon, QAction,QPixmap,QDropEvent
 from PyQt6.QtWidgets import QApplication,QMainWindow,QDialog
 from PyQt6.QtCore import QRect
@@ -26,20 +26,26 @@ class showPersonalInfo(QDialog):
             self.data = json.load(file)
 
         # Set the number of columns
-        self.tblwInfo.setColumnCount(3)
+        self.tblwInfo.setColumnCount(4)
+        self.tblwInfo.setColumnWidth (0,100)
+        self.tblwInfo.setColumnWidth (1, 100)
+        self.tblwInfo.setColumnWidth (2, 250)
+        self.tblwInfo.setColumnWidth(3, 250)
         # Set the number of rows
         self.tblwInfo.setRowCount(len(self.data))
 
         # Set the column headers
-        self.tblwInfo.setHorizontalHeaderLabels(["Fornavn", "Etternavn", "E-Mail"])
+        self.tblwInfo.setHorizontalHeaderLabels(["Fornavn", "Etternavn", "E-Mail", "Password"])
 
         # Populate the table with data
         for row_index, row_data in enumerate(self.data):
             self.tblwInfo.setItem(row_index, 0, QTableWidgetItem(row_data["Fornavn"]))
             self.tblwInfo.setItem(row_index, 1, QTableWidgetItem(row_data["Etternavn"]))
             self.tblwInfo.setItem(row_index, 2, QTableWidgetItem(row_data["E-Mail"]))
+            self.tblwInfo.setItem(row_index, 3, QTableWidgetItem(row_data["Password"]))
 
         self.show()
+
 
     def onLoginClicked(self):
         print("Login Button Clicked")
@@ -55,7 +61,8 @@ class showPersonalInfo(QDialog):
 if __name__ == '__main__':
     # You need one (and only one) QApplication instance per application.
     app = QApplication([])
-
+    app.setStyle("Fusion")
+    print(f"Keys: {QStyleFactory.keys()}")
     window = showPersonalInfo()   # Create QtMainWindow
     window.show()
 
