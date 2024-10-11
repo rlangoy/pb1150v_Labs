@@ -97,7 +97,7 @@ if __name__ == '__main__':
     #dialog = loginDialogUsingUiFile()
 
     #  Create/Update DialogBox file loginDialog.py from loginDialog.ui
-    #pyuic6 - x loginDialog.ui - o loginDialog.py
+    #pyuic6 -x loginDialog.ui -o loginDialog.py
     #dialog = loginDialog()
 
     # Start the event loop.
