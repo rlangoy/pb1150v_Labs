@@ -18,6 +18,10 @@ class SerialTerminalWindow(QMainWindow):
         listOfSerialPorts=JsonSerialConnector.getSerialPortsAsList()
 
         #Set display Text in the Place holder
+        self.ui.cmbSerialCommands.setPlaceholderText("Select a macro")
+        self.ui.cmbSerialCommands.addItems(['{"userLedOn": 1}','{"userLedOn": 0}'])
+        self.ui.cmbSerialCommands.currentIndexChanged.connect(self.onCmbSerialCommandsIdxCh)
+
         self.ui.labSerialPortStatusConected.setVisible(False)
         self.ui.cmbSerialPorts.setPlaceholderText("Select a port")
         self.ui.cmbSerialPorts.setStyleSheet("QComboBox {color: red}")
@@ -26,7 +30,17 @@ class SerialTerminalWindow(QMainWindow):
 
         self.ui.cmbSerialPorts.currentIndexChanged.connect(self.onCmbIndexChanged)
 
+        self.ui.btnSend.clicked.connect(self.onBtnSend)
+
         self.show()
+
+    def onBtnSend(self):
+        print(self.ui.txtToSend.toPlainText())
+        self.jsonConnector.sendTextMessage(self.ui.txtToSend.toPlainText()+'\n\r')
+
+
+    def onCmbSerialCommandsIdxCh(self,index):
+        self.ui.txtToSend.setText(self.ui.cmbSerialCommands.itemText(index))
 
     def onCmbIndexChanged(self,index):
         #Remove the red line
