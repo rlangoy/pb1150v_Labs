@@ -1,14 +1,11 @@
 
-
-
 from PyQt6.QtWidgets import QStyleFactory,QPlainTextEdit,QFileDialog,QLabel,QPushButton,QCheckBox,QDial,QMessageBox,QLineEdit
-from PyQt6.QtGui import QIcon, QAction,QPixmap,QDropEvent
+from PyQt6.QtGui import QIcon, QAction,QPixmap,QDropEvent,QCloseEvent
 from PyQt6.QtWidgets import QApplication,QMainWindow,QDialog
 from PyQt6.QtCore import QRect
 
 from serialTerminalWindow import Ui_serialTerminal
 from qtSerialComp import JsonSerialConnector
-
 
 class SerialTerminalWindow(QMainWindow):
     def __init__(self):
@@ -20,35 +17,54 @@ class SerialTerminalWindow(QMainWindow):
         #Get list of available serial ports
         listOfSerialPorts=JsonSerialConnector.getSerialPortsAsList()
 
-        self.ui.cmbSerialPorts.addItem("Select a port")
+        #Set display Text in the Place holder
+        self.ui.labSerialPortStatusConected.setVisible(False)
+        self.ui.cmbSerialPorts.setPlaceholderText("Select a port")
+        self.ui.cmbSerialPorts.setStyleSheet("QComboBox {color: red}")
+        self.ui.cmbSerialPorts.setCurrentIndex(-1)
         self.ui.cmbSerialPorts.addItems(listOfSerialPorts)
-        self.ui.cmbSerialPorts.addItems(["He","aa","dd"])
-
 
         self.ui.cmbSerialPorts.currentIndexChanged.connect(self.onCmbIndexChanged)
 
         self.show()
 
     def onCmbIndexChanged(self,index):
-       # if self.ui.cmbSerialPorts.itemText(0) == "Select a port" and self.ui.cmbSerialPorts.currentIndex() != 0:
-       #     self.ui.cmbSerialPorts.removeItem(0)
+        #Remove the red line
+        self.ui.cmbSerialPorts.setStyleSheet("")
         serialPortToUse=self.ui.cmbSerialPorts.itemText(index)
-        print(serialPortToUse)
 
-        #Move to Connect...
-        print("Setting up serial port")
-        self.jsonConnector=JsonSerialConnector(serialPortToUse)    #Connect to serial port
-        self.jsonConnector.serialDataRxSignal.connect(self.onRxSerialData)
-#        if (self.ui.cmbSerialPorts.cont(["Select Com"]))
+        try :
+            try :  # Try to close serial port and remove it
+                   # Wil expextidly fail first time when it i not declared..
+               self.jsonConnector.running = False
+               self.jsonConnector.serialPort.close()
+               del self.jsonConnector
+            except:
+                self.jsonConnector = None
 
-        #idx = self.ui.cmbSerialPorts.findText("Select a port")
-        #self.ui.cmbSerialPorts.removeItem(idx)
+            self.jsonConnector=JsonSerialConnector(serialPortToUse)    #Connect to serial port
+            self.jsonConnector.serialDataRxSignal.connect(self.onRxSerialData)
+            self.ui.labSerialPortStatusConected.setVisible(True)
+            self.ui.labSerialPortStatusDisconnected.setVisible(False)
+            self.ui.txtRecieved.setPlainText("")
 
-    #print(index)
-
+        except Exception as e:
+            self.ui.labSerialPortStatusConected.setVisible(False)
+            self.ui.labSerialPortStatusDisconnected.setVisible(True)
+            print("Error")
+            print(e)
 
     def onRxSerialData(self,message):
-            print(f"RecieverClass: Received  message: {message}")
+            self.ui.txtRecieved.appendPlainText(str(message))
+
+    def closeEvent(self, event: QCloseEvent):
+        try:  # Try to close serial port and remove it
+            # Wil expextidly fail first time when it i not declared..
+            self.jsonConnector.running= False
+            self.jsonConnector.serialPort.close()
+            del self.jsonConnector
+        except:
+            self.jsonConnector = None
 
 
 #  pip install pyserial

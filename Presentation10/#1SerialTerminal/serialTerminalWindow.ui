@@ -87,21 +87,24 @@
       <height>41</height>
      </rect>
     </property>
+    <property name="currentText">
+     <string extracomment="Please Select"/>
+    </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="labSerialPortStatusDisconnected">
     <property name="geometry">
      <rect>
-      <x>800</x>
-      <y>10</y>
-      <width>25</width>
-      <height>25</height>
+      <x>798</x>
+      <y>4</y>
+      <width>32</width>
+      <height>32</height>
      </rect>
     </property>
     <property name="text">
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>settings.svg</pixmap>
+     <pixmap>power_off.svg</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -130,6 +133,25 @@
     </property>
     <property name="text">
      <string>Serial Terminal </string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labSerialPortStatusConected">
+    <property name="geometry">
+     <rect>
+      <x>798</x>
+      <y>4</y>
+      <width>32</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>electrical_services.svg</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
     </property>
    </widget>
   </widget>

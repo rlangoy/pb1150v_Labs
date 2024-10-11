@@ -40,18 +40,17 @@ class JsonSerialConnector(threading.Thread,QObject):
       self.running = True
 
       if (serialPortNumber == ''):
-            print("The JsonSerialConnector(serialPort)\n serialPort was not specified !")
-            print('Please Select one of the comports\nIf you do not know try the last one :)')
-            self.printSerialPorts()
-            exit(1)
+            errorMsg = "The JsonSerialConnector(serialPort)\n serialPort was not specified !\n"
+            errorMsg +="Please Select one of the comports\nIf you do not know try the last one :)"
+            raise ValueError(errorMsg)
       try:
             self.serialPort = serial.Serial(serialPortNumber)  # open serial port
       except Exception as e:
-            print(e)
-            print("Could not connect to " + serialPortNumber)
-            print('Please Select one of the serialPort listed below\nIf you do not know try the last one :)')
-            self.printSerialPorts()
-            exit(1)
+            errorMsg=f"{e}+ \nCould not connect to {serialPortNumber}\n"
+            #print(errorMsg + 'Please Select one of the serialPort listed below\nIf you do not know try the last one :)')
+            #self.printSerialPorts()
+            raise ValueError(errorMsg)
+
       self.start()
 
     #Thread for reading serial lines
