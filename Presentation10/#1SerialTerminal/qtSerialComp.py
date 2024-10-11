@@ -61,10 +61,13 @@ class JsonSerialConnector(threading.Thread,QObject):
                 serialInputAsDictionary = json.loads(serialInputStringAsLine)
                 self.serialDataRxSignal.emit(serialInputAsDictionary)
 
-    def sendMessage(self,dictMessage):
+    def sendDictMessage(self,dictMessage):
         message=json.dumps(dictMessage)
         self.serialPort.write(message.encode('utf-8'))
         #self.serialPort.write(b'{\"userLedOn\": 1}\r\n')
+
+    def sendTextMessage(self,strMessage):
+        self.serialPort.write(strMessage.encode('utf-8'))
 
 if __name__ == "__main__":
     class TestRecieverClass(QObject):
@@ -78,14 +81,14 @@ if __name__ == "__main__":
 
     app = QCoreApplication(sys.argv)
 
-    jsonConnector=JsonSerialConnector("COM51")    #Connect to serial port
+    jsonConnector=JsonSerialConnector("COM7")    #Connect to serial port
 
     # Create and connect Class that listens for JSON information
     recvClass = TestRecieverClass()
     jsonConnector.serialDataRxSignal.connect(recvClass.handleJsonSignal)
 
     #Send message to turn led on
-    jsonConnector.sendMessage({"userLedOn": 1})
+    jsonConnector.sendDictMessage({"userLedOn": 1})
 
     sys.exit(app.exec())
 
