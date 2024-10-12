@@ -27,38 +27,66 @@ class SerialTerminalWindow(QMainWindow):
         self.ui.cmbSerialPorts.setStyleSheet("QComboBox {color: red}")
         self.ui.cmbSerialPorts.setCurrentIndex(-1)
         self.ui.cmbSerialPorts.addItems(listOfSerialPorts)
-        self.ui.cmbSerialPorts.addItems(['sss','eeee'])
-
         self.ui.cmbSerialPorts.currentIndexChanged.connect(self.onCmbIndexChanged)
 
+        #Connect send button to the method onBtSend
         self.ui.btnSend.clicked.connect(self.onBtnSend)
 
         self.show()
 
+
     def onBtnSend(self):
+        """
+         Handles the action triggered when the send button is pressed.
+
+         This method sends the text entered in the `txtToSend` text box
+         to the connected serial device. The text is appended with a newline (`\n`)
+         and carriage return (`\r`) characters before being sent.
+        """
         print(self.ui.txtToSend.toPlainText())
         self.serialConnector.sendTextMessage(self.ui.txtToSend.toPlainText()+'\n\r')
 
 
     def onCmbSerialCommandsIdxCh(self,index):
+        """
+        Handles changes in the selection of the combobox `cmbSerialCommands`.
+
+        This method reads the selected text from the combobox and places it in
+        the `txtToSend` textbox. The content of `txtToSend` will be sent to the
+        serial port when the `onBtnSend` button is clicked.
+
+        Args:
+            index (int): The index of the selected item in the combobox.
+        """
         self.ui.txtToSend.setText(self.ui.cmbSerialCommands.itemText(index))
 
-    def onCmbIndexChanged(self,index):
-        #Remove the red line
-        self.ui.cmbSerialPorts.setStyleSheet("")
-        serialPortToUse=self.ui.cmbSerialPorts.itemText(index)
+    def connectToSerialPort(self,serialPortToUse):
+        """
+        Establishes a connection to the specified serial port.
 
-        try :
-            try :  # Try to close serial port and remove it
-                   # Wil expextidly fail first time when it i not declared..
+        This method attempts to connect to the provided `serialPortToUse`. If a previous
+        serial connection exists, it will attempt to close and delete it before making a
+        new connection. If the connection is successful, the serial port status image
+        in the UI will reflect the connected state. If there is an error during the
+        connection process, the status image will reflect the disconnected state.
+
+        Args:
+            serialPortToUse (str): The name of the serial port to connect to.
+
+        Raises:
+            Exception: If the connection to the serial port fails.
+        """
+        try:
+            try:  # Try to close serial port and remove it
+                # Wil expextidly fail first time when it i not declared..
                 self.serialConnector.close()
                 del self.serialConnector
             except:
                 self.serialConnector = None
 
             # Connect to serial port and show it
-            self.serialConnector=SerialConnector(serialPortToUse)
-            self.serialConnector.serialDataRxAsDict.connect(self.onRxSerialData)
+            self.serialConnector = SerialConnector(serialPortToUse)
+            self.serialConnector.serialDataRxAsDict.connect(self.onRxSerialDictData)
             self.ui.labSerialPortStatusConected.setVisible(True)
             self.ui.labSerialPortStatusDisconnected.setVisible(False)
             self.ui.txtRecieved.setPlainText("")
@@ -69,11 +97,47 @@ class SerialTerminalWindow(QMainWindow):
             print("Error")
             print(e)
 
-    def onRxSerialData(self,message):
-            self.ui.txtRecieved.appendPlainText(str(message))
+    def onCmbIndexChanged(self,index):
+        """
+        Handles changes in the selection of the combobox `cmbSerialPorts`.
+
+        This method reads the selected serial port name, attempts to open the serial
+        port, and updates the graphical user interface accordingly.
+
+        Args:
+            index (int): The index of the selected item in the combobox.
+        """
+        #Remove the red line by removing the stylesheet
+        self.ui.cmbSerialPorts.setStyleSheet("")
+        #Get the selected serial port name
+        serialPortToUse=self.ui.cmbSerialPorts.itemText(index)
+
+        # Try to connect to serial port and
+        # update the user interface
+        self.connectToSerialPort(serialPortToUse)
+
+
+
+
+    def onRxSerialDictData(self,message : dict):
+        """
+        Handles the action triggered when serial data is ready to be processed.
+
+        This method appends the received Python dictionary to the `txtRecieved`
+        text box as a string.
+
+        Args:
+            message (dict): The incoming serial data represented as a dictionary.
+        """
+        self.ui.txtRecieved.appendPlainText(str(message))
 
     def closeEvent(self, event: QCloseEvent):
-        print("Bye")
+        """
+         Handles the windows triggered close event.
+
+         This method disconnects the serial port
+        """
+
         try:  # Try to close serial port and remove it
             self.serialConnector.close()
             del self.serialConnector
