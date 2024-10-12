@@ -23,6 +23,8 @@ class SerialTerminalWindow(QMainWindow):
         self.ui.cmbSerialCommands.currentIndexChanged.connect(self.onCmbSerialCommandsIdxCh)
 
         self.ui.labSerialPortStatusConected.setVisible(False)
+        self.ui.btnSend.setEnabled(False)
+
         self.ui.cmbSerialPorts.setPlaceholderText("Select a port")
         self.ui.cmbSerialPorts.setStyleSheet("QComboBox {color: red}")
         self.ui.cmbSerialPorts.setCurrentIndex(-1)
@@ -88,11 +90,13 @@ class SerialTerminalWindow(QMainWindow):
             self.serialConnector.serialDataRxAsDict.connect(self.onRxSerialDictData)
             self.ui.labSerialPortStatusConected.setVisible(True)
             self.ui.labSerialPortStatusDisconnected.setVisible(False)
+            self.ui.btnSend.setEnabled(True)
             self.ui.txtRecieved.setPlainText("")
 
         except Exception as e:
             self.ui.labSerialPortStatusConected.setVisible(False)
             self.ui.labSerialPortStatusDisconnected.setVisible(True)
+            self.ui.btnSend.setEnabled(False)
             print("Error")
             print(e)
 
