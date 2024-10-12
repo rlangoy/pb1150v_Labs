@@ -16,9 +16,10 @@ import sys
 import warnings
 warnings.filterwarnings('ignore')  # remove warning for python v3.10.8 (DeprecationWarning: sipPyTypeDict())
 
-class JsonSerialConnector(threading.Thread,QObject):
+class SerialConnector(threading.Thread,QObject):
     serialPort = None  # PySerial Com Port Object opened in the constructor
-    serialDataRxSignal = QtCore.pyqtSignal(dict)
+    serialDataRxAsDict     = QtCore.pyqtSignal(dict)
+    serialDataRxAsLineStr  = QtCore.pyqtSignal(str)
 
     @staticmethod
     def getSerialPortsAsList():
@@ -58,16 +59,26 @@ class JsonSerialConnector(threading.Thread,QObject):
         while self.running :
             if(self.serialPort.inWaiting()>0):
                 serialInputStringAsLine = self.serialPort.readline()
+                #send data as string to subscribers
+                self.serialDataRxAsLineStr.emit(str(serialInputStringAsLine))
                 serialInputAsDictionary = json.loads(serialInputStringAsLine)
-                self.serialDataRxSignal.emit(serialInputAsDictionary)
+                #send data ad python dictionary to subscribers
+                self.serialDataRxAsDict.emit(serialInputAsDictionary)
 
-    def sendDictMessage(self,dictMessage):
+    def sendDictMessageAsJson(self,dictMessage):
         message=json.dumps(dictMessage)
         self.serialPort.write(message.encode('utf-8'))
         #self.serialPort.write(b'{\"userLedOn\": 1}\r\n')
 
     def sendTextMessage(self,strMessage):
         self.serialPort.write(strMessage.encode('utf-8'))
+
+    #Close the component by stoping the thread and close the serial port
+    def close(self):
+        #Stop the thread from  running
+        self.running = False
+        if(self.serialPort ):
+          self.serialPort.close()
 
 if __name__ == "__main__":
     class TestRecieverClass(QObject):
@@ -81,18 +92,19 @@ if __name__ == "__main__":
 
     app = QCoreApplication(sys.argv)
 
-    jsonConnector=JsonSerialConnector("COM7")    #Connect to serial port
+    serialConnector=SerialConnector("COM7")    #Connect to serial port
 
     # Create and connect Class that listens for JSON information
     recvClass = TestRecieverClass()
-    jsonConnector.serialDataRxSignal.connect(recvClass.handleJsonSignal)
+    serialConnector.serialDataRxAsDict.connect(recvClass.handleJsonSignal)
 
     #Send message to turn led on
-    jsonConnector.sendDictMessage({"userLedOn": 1})
+    serialConnector.sendDictMessageAsJson({"userLedOn": 1})
 
     sys.exit(app.exec())
 
-    #print("Bye")
+    print("Bye")
+    serialConnector.close()
     #minBryter.running= False
     #del minBryter
 
