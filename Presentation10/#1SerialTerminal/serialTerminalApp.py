@@ -43,7 +43,6 @@ class SerialTerminalWindow(QMainWindow):
          to the connected serial device. The text is appended with a newline (`\n`)
          and carriage return (`\r`) characters before being sent.
         """
-        print(self.ui.txtToSend.toPlainText())
         self.serialConnector.sendTextMessage(self.ui.txtToSend.toPlainText()+'\n\r')
 
 
