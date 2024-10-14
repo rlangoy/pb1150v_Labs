@@ -24,20 +24,30 @@ class MatplotlibWidget(QWidget):
         self.setLayout(layout)
 
 class RealTimeMatplotlibWidget(MatplotlibWidget):
+
+        #Data to display
         xdata, ydata = [], []
+        #Curent plot index
         pltXIndex = 0
+
+        #Maximum number of plots to display
+        dataPointToPlot=50
 
         def __init__(self, parent=None):
             super().__init__(parent)
-
-        def addDataAndPlot(self,x ,y ):
-            self.xdata.append(x)
+        def addDataAndPlot(self, y ):
+            """
+           Adds new Y-Value to be plotted.
+           The number of datapoints to be ploted is
+               limited by 'self.dataPointToPlot'
+            """
+            self.xdata.append(self.pltXIndex)
             self.ydata.append(y)
             self.pltXIndex += 1
 
             # Limit the list to the last 50 elements
-            self.xdata = self.xdata[-50:]
-            self.ydata = self.ydata[-50:]
+            self.xdata = self.xdata[-self.dataPointToPlot:]
+            self.ydata = self.ydata[-self.dataPointToPlot:]
 
             self.plt.clear()
             self.plt.plot(self.ydata)
@@ -122,10 +132,6 @@ class SerialPlotterWindow(QMainWindow):
         # update the user interface
         self.connectToSerialPort(serialPortToUse)
 
-
-    pltXIndex=0
-    xdata, ydata = [], []
-
     def onRxSerialDictData(self,message : dict):
         """
         Handles the action triggered when serial data is ready to be processed.
@@ -134,7 +140,7 @@ class SerialPlotterWindow(QMainWindow):
             message (dict): The incoming serial data represented as a dictionary.
         """
 
-        self.matWiget.addDataAndPlot(self.pltXIndex, message['Pot1Value'])
+        self.matWiget.addDataAndPlot(message['Pot1Value'])
 
     def closeEvent(self, event: QCloseEvent):
         """
