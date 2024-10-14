@@ -42,12 +42,13 @@ class Ui_serialPlotter(object):
         self.labSerialPortStatusConected.setPixmap(QtGui.QPixmap("electrical_services.svg"))
         self.labSerialPortStatusConected.setScaledContents(True)
         self.labSerialPortStatusConected.setObjectName("labSerialPortStatusConected")
-        self.label = QtWidgets.QLabel(parent=self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(80, 70, 761, 351))
-        self.label.setObjectName("label")
+        self.widget = QtWidgets.QWidget(parent=self.centralwidget)
+        self.widget.setGeometry(QtCore.QRect(100, 100, 681, 291))
+        self.widget.setStyleSheet("background-color:black;")
+        self.widget.setObjectName("widget")
         serialPlotter.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(parent=serialPlotter)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 981, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 981, 26))
         self.menubar.setObjectName("menubar")
         serialPlotter.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(parent=serialPlotter)
@@ -61,7 +62,6 @@ class Ui_serialPlotter(object):
         _translate = QtCore.QCoreApplication.translate
         serialPlotter.setWindowTitle(_translate("serialPlotter", "Serial Plotter "))
         self.label_2.setText(_translate("serialPlotter", "Serial Plotter"))
-        self.label.setText(_translate("serialPlotter", "TextLabel"))
 
 
 if __name__ == "__main__":

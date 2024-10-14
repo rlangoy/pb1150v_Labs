@@ -42,11 +42,10 @@ class Ui_serialPlotter(object):
         self.labSerialPortStatusConected.setPixmap(QtGui.QPixmap("electrical_services.svg"))
         self.labSerialPortStatusConected.setScaledContents(True)
         self.labSerialPortStatusConected.setObjectName("labSerialPortStatusConected")
-        self.label = QtWidgets.QLabel(parent=self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(140, 100, 621, 251))
-        self.label.setStyleSheet("")
-        self.label.setText("")
-        self.label.setObjectName("label")
+        self.pltGraph = RealTimeMatplotLibWidget(parent=self.centralwidget)
+        self.pltGraph.setGeometry(QtCore.QRect(60, 80, 811, 331))
+        self.pltGraph.setStyleSheet("background-color:black;")
+        self.pltGraph.setObjectName("pltGraph")
         serialPlotter.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(parent=serialPlotter)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 981, 26))
@@ -63,6 +62,7 @@ class Ui_serialPlotter(object):
         _translate = QtCore.QCoreApplication.translate
         serialPlotter.setWindowTitle(_translate("serialPlotter", "Serial Plotter "))
         self.label_2.setText(_translate("serialPlotter", "Serial Plotter"))
+from MatPlotLibWidget import RealTimeMatplotLibWidget
 
 
 if __name__ == "__main__":

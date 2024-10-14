@@ -7,6 +7,11 @@ from PyQt6.QtCore import QRect
 from serialPlotterWindow import Ui_serialPlotter
 from qtSerialComp import SerialConnector
 
+
+# Import the custom QWidget MatplotlibWidget
+import MatPlotLibWidget
+
+
 class SerialPlotterWindow(QMainWindow):
     def __init__(self):
         super().__init__()

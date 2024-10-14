@@ -90,20 +90,17 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="RealTimeMatplotLibWidget" name="pltGraph" native="true">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>100</y>
-      <width>621</width>
-      <height>251</height>
+      <x>60</x>
+      <y>80</y>
+      <width>811</width>
+      <height>331</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true"/>
-    </property>
-    <property name="text">
-     <string/>
+     <string notr="true">background-color:black;</string>
     </property>
    </widget>
   </widget>
@@ -119,6 +116,14 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>RealTimeMatplotLibWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">MatPlotLibWidget</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
