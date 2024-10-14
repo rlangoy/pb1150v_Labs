@@ -10,9 +10,7 @@ import matplotlib.pyplot  as plt
 from serialPlotterWindow import Ui_serialPlotter
 from qtSerialComp import SerialConnector
 
-
 # Define the custom MatplotlibWidget class
-#class MatplotlibWidget(FigureCanvas):
 class MatplotlibWidget(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -24,6 +22,27 @@ class MatplotlibWidget(QWidget):
         layout = QHBoxLayout (self)
         layout.addWidget(self.canvas)
         self.setLayout(layout)
+
+class RealTimeMatplotlibWidget(MatplotlibWidget):
+        xdata, ydata = [], []
+        pltXIndex = 0
+
+        def __init__(self, parent=None):
+            super().__init__(parent)
+
+        def addDataAndPlot(self,x ,y ):
+            self.xdata.append(x)
+            self.ydata.append(y)
+            self.pltXIndex += 1
+
+            # Limit the list to the last 50 elements
+            self.xdata = self.xdata[-50:]
+            self.ydata = self.ydata[-50:]
+
+            self.plt.clear()
+            self.plt.plot(self.ydata)
+            self.canvas.draw()  # Redraw the canvas
+
 
 class SerialPlotterWindow(QMainWindow):
     def __init__(self):
@@ -43,7 +62,7 @@ class SerialPlotterWindow(QMainWindow):
         self.ui.cmbSerialPorts.currentIndexChanged.connect(self.onCmbIndexChanged)
 
         self.ui.label.setVisible(False)
-        self.matWiget = MatplotlibWidget(self)
+        self.matWiget = RealTimeMatplotlibWidget(self)
         self.matWiget.setGeometry(self.ui.label.geometry())
 
         self.show()
@@ -115,17 +134,7 @@ class SerialPlotterWindow(QMainWindow):
             message (dict): The incoming serial data represented as a dictionary.
         """
 
-        self.xdata.append(self.pltXIndex)
-        self.ydata.append(message['Pot1Value'])
-        self.pltXIndex += 1
-
-        # Limit the list to the last 50 elements
-        self.xdata = self.xdata[-50:]
-        self.ydata = self.ydata[-50:]
-
-        self.matWiget.plt.clear()
-        self.matWiget.plt.plot(self.ydata)
-        self.matWiget.canvas.draw()  # Redraw the canvas
+        self.matWiget.addDataAndPlot(self.pltXIndex, message['Pot1Value'])
 
     def closeEvent(self, event: QCloseEvent):
         """
