@@ -2,25 +2,11 @@ from PyQt6.QtWidgets import QWidget,QHBoxLayout
 
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
-from PyQt6.QtCore import (pyqtProperty, pyqtSignal, pyqtSlot, QPoint, QSize,
-        Qt, QTime, QTimer)
-from PyQt6.QtGui import QBrush, QColor, QPainter, QPen, QPolygon
-from PyQt6.QtWidgets import QApplication, QWidget
+from PyQt6.QtWidgets import QApplication
 
-
-from PyQt6.QtDesigner import QPyDesignerCustomWidgetPlugin
-from PyQt6.QtGui import QIcon
-from PyQt6.QtCore import Qt, QObject
-
-from PyQt6.QtCore import QLibraryInfo
-
-
-##   pyqt6-tools.exe designer -p .
 ##
-
-
-from PyQt6.QtWidgets import QWidget, QVBoxLayout, QPushButton
-from PyQt6.QtCore import pyqtSignal
+##   pyqt6-tools.exe designer -p
+##
 
 class MatPlotLibWidget(QWidget):
     def __init__(self, parent=None):
