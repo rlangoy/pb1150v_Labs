@@ -217,14 +217,14 @@ class SerialTerminalWidget(QWidget):
         self.labSerialPortStatusConected = QtWidgets.QLabel(self)
         self.labSerialPortStatusConected.setGeometry(QtCore.QRect(0, 4, 32, 32))
         self.labSerialPortStatusConected.setText("")
-        self.labSerialPortStatusConected.setPixmap(QPixmap.fromImage(qImgConnected))
+        self.labSerialPortStatusConected.setPixmap(QPixmap.fromImage(self.qImgConnected))
         self.labSerialPortStatusConected.setScaledContents(True)
         self.labSerialPortStatusConected.setObjectName("labSerialPortStatusConected")
 
         self.labSerialPortStatusDisconnected = QtWidgets.QLabel(self)
         self.labSerialPortStatusDisconnected.setGeometry(QtCore.QRect(0, 4, 32, 32))
         self.labSerialPortStatusDisconnected.setText("")
-        self.labSerialPortStatusDisconnected.setPixmap(QPixmap.fromImage(qImgDisConnected))
+        self.labSerialPortStatusDisconnected.setPixmap(QPixmap.fromImage(self.qImgDisConnected))
         self.labSerialPortStatusDisconnected.setScaledContents(True)
         self.labSerialPortStatusDisconnected.setObjectName("labSerialPortStatusDisconnected")
 
@@ -303,17 +303,15 @@ class SerialTerminalWidget(QWidget):
         except:
             self.serialConnector = None
 
+    electrical_services_svg = """
+    <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#5f6368"><path d="M716.67-360v-66.67h90q14.33 0 23.83 9.5 9.5 9.5 9.5 23.84 0 13.66-9.5 23.5Q821-360 806.67-360h-90Zm0 160v-66.67h90q14.33 0 23.83 9.5 9.5 9.5 9.5 23.84 0 13.66-9.5 23.5Q821-200 806.67-200h-90ZM560-160q-30.33 0-51.83-23.5t-21.5-56.5h-90v-146.67h90q0-33 21.5-56.5t51.83-23.5h123.33V-160H560ZM276.67-280Q210-280 165-324.67q-45-44.66-45-112 0-67.33 45-112 45-44.66 111.67-44.66H340q30.33 0 50.17-19.84Q410-633 410-663.33q0-30.34-19.83-50.17-19.84-19.83-50.17-19.83H193.33q-13.66 0-23.5-9.84Q160-753 160-766.67q0-14.33 9.83-23.83 9.84-9.5 23.5-9.5H340q58 0 97.33 39.33 39.34 39.34 39.34 97.34T437.33-566Q398-526.67 340-526.67h-63.33q-39 0-64.5 25.17t-25.5 64.83q0 39.67 25.5 64.84 25.5 25.16 64.5 25.16h86.66V-280h-86.66Z"/></svg>
+    """
+    qImgConnected=QImage.fromData(QByteArray(electrical_services_svg.encode('utf-8')))
 
-
-electrical_services_svg = """
-<svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#5f6368"><path d="M716.67-360v-66.67h90q14.33 0 23.83 9.5 9.5 9.5 9.5 23.84 0 13.66-9.5 23.5Q821-360 806.67-360h-90Zm0 160v-66.67h90q14.33 0 23.83 9.5 9.5 9.5 9.5 23.84 0 13.66-9.5 23.5Q821-200 806.67-200h-90ZM560-160q-30.33 0-51.83-23.5t-21.5-56.5h-90v-146.67h90q0-33 21.5-56.5t51.83-23.5h123.33V-160H560ZM276.67-280Q210-280 165-324.67q-45-44.66-45-112 0-67.33 45-112 45-44.66 111.67-44.66H340q30.33 0 50.17-19.84Q410-633 410-663.33q0-30.34-19.83-50.17-19.84-19.83-50.17-19.83H193.33q-13.66 0-23.5-9.84Q160-753 160-766.67q0-14.33 9.83-23.83 9.84-9.5 23.5-9.5H340q58 0 97.33 39.33 39.34 39.34 39.34 97.34T437.33-566Q398-526.67 340-526.67h-63.33q-39 0-64.5 25.17t-25.5 64.83q0 39.67 25.5 64.84 25.5 25.16 64.5 25.16h86.66V-280h-86.66Z"/></svg>
-"""
-qImgConnected=QImage.fromData(QByteArray(electrical_services_svg.encode('utf-8')))
-
-power_off_svg="""
-<svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#5f6368"><path d="M381.33-120v-118.67L240-389.33V-606q0-24.67 15-43.33 15-18.67 38-22.34L358.67-606h-52v189.33L448-266.2v79.53h64V-266l45-48.33L63.33-808 110-854.67l745.33 745.34-46.66 46.66-204-204-26 28V-120H381.33ZM690-369.33 653.33-406v-200h-200L334.67-724.67V-840h66.66v167.33h157.34V-840h66.66v200.67L592-672.67h61.33q27.5 0 47.09 19.59Q720-633.5 720-606v204l-30 32.67ZM554.67-504.67Zm-119.34 69Z"/></svg>
-"""
-qImgDisConnected=QImage.fromData(QByteArray(electrical_services_svg.encode('utf-8')))
+    power_off_svg="""
+    <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#5f6368"><path d="M381.33-120v-118.67L240-389.33V-606q0-24.67 15-43.33 15-18.67 38-22.34L358.67-606h-52v189.33L448-266.2v79.53h64V-266l45-48.33L63.33-808 110-854.67l745.33 745.34-46.66 46.66-204-204-26 28V-120H381.33ZM690-369.33 653.33-406v-200h-200L334.67-724.67V-840h66.66v167.33h157.34V-840h66.66v200.67L592-672.67h61.33q27.5 0 47.09 19.59Q720-633.5 720-606v204l-30 32.67ZM554.67-504.67Zm-119.34 69Z"/></svg>
+    """
+    qImgDisConnected=QImage.fromData(QByteArray(electrical_services_svg.encode('utf-8')))
 
 #  pip install pyserial
 #  Create/Update DialogBox file loginDialog.py from loginDialog.ui
@@ -323,7 +321,6 @@ qImgDisConnected=QImage.fromData(QByteArray(electrical_services_svg.encode('utf-
 if __name__ == '__main__':
     # You need one (and only one) QApplication instance per application.
     app = QApplication([])
-
 
     window = SerialTerminalWidget()   # Create QtMainWindow
     window.show()
