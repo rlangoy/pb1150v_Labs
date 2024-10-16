@@ -109,6 +109,7 @@ class mainWindow(QMainWindow):
         #Init the Window
         self.setupWindow()
 
+
     def _isWindowInsideScreen(self, geometry):
         """
         Checks if the window's geometry is fully contained within the primary screen's available area.
@@ -146,12 +147,14 @@ class mainWindow(QMainWindow):
         #Set the actual window Size
         self.setGeometry(geoRect)
 
-        # Add Widdgets to MainForm
+        # Add Widdget to QMainWindow
         self.qTextEditField = FileQPlainTextEdit()
         self.setCentralWidget(self.qTextEditField)
 
         fileMenu = self.menuBar().addMenu("File")
         actionFileOpen = QAction(QIcon("folder_open.svg"), "&Open File",self)
+        actionFileSave = QAction(QIcon("save.svg"), "&Save File", self)
+
         #actionFileOpen = QAction(self.style().standardIcon(QStyle.StandardPixmap.SP_DirOpenIcon), "&Open File", self)  #    QT-standard Icons
         fileMenu.addAction(actionFileOpen)
         actionFileOpen.triggered.connect(self.openFile)  # type: ignore
