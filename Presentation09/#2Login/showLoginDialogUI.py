@@ -9,7 +9,7 @@ class MainWindow(QDialog):
     def __init__(self, parent = None):
         super(MainWindow, self).__init__()
 
-        uic.loadUi('loginDialog.ui', self)
+        uic.loadUi('SimpleLoginDialog.ui', self)
 
 
 if __name__ == "__main__":
