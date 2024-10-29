@@ -46,7 +46,7 @@ if errorlevel 1 (
 echo Check if pyqt6-tools is installed
 pyqt6-tools.exe  >nul 2>&1
 Echo Errorlevel: [%errorlevel%]
-if %errorlevel% neq 0 (
+if %errorlevel% neq 0 (p
     echo installing Qt Designer
 
     python -m pip install pyqt6-tools
