@@ -119,10 +119,7 @@ class SerialTerminalWindow(QMainWindow):
         # update the user interface
         self.connectToSerialPort(serialPortToUse)
 
-
-
-
-    def onRxSerialDictData(self,message : dict):
+    def onRxSerialDictData(self, message: dict):
         """
         Handles the action triggered when serial data is ready to be processed.
 
