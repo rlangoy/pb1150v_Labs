@@ -12,19 +12,25 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_blinkyWindow(object):
     def setupUi(self, blinkyWindow):
         blinkyWindow.setObjectName("blinkyWindow")
-        blinkyWindow.resize(264, 253)
+        blinkyWindow.resize(208, 312)
         self.centralwidget = QtWidgets.QWidget(parent=blinkyWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.dial = QtWidgets.QDial(parent=self.centralwidget)
-        self.dial.setGeometry(QtCore.QRect(30, 30, 191, 141))
+        self.dial.setGeometry(QtCore.QRect(0, 30, 191, 141))
         self.dial.setMaximum(100)
         self.dial.setObjectName("dial")
         self.checkBox = QtWidgets.QCheckBox(parent=self.centralwidget)
-        self.checkBox.setGeometry(QtCore.QRect(50, 180, 121, 20))
+        self.checkBox.setGeometry(QtCore.QRect(30, 180, 121, 20))
         self.checkBox.setObjectName("checkBox")
+        self.cmbIntervall = QtWidgets.QComboBox(parent=self.centralwidget)
+        self.cmbIntervall.setGeometry(QtCore.QRect(30, 230, 141, 21))
+        self.cmbIntervall.setObjectName("cmbIntervall")
+        self.label = QtWidgets.QLabel(parent=self.centralwidget)
+        self.label.setGeometry(QtCore.QRect(30, 210, 111, 16))
+        self.label.setObjectName("label")
         blinkyWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(parent=blinkyWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 264, 22))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 208, 26))
         self.menubar.setObjectName("menubar")
         blinkyWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(parent=blinkyWindow)
@@ -38,6 +44,7 @@ class Ui_blinkyWindow(object):
         _translate = QtCore.QCoreApplication.translate
         blinkyWindow.setWindowTitle(_translate("blinkyWindow", "Qt QTimer example"))
         self.checkBox.setText(_translate("blinkyWindow", "Timer Enabled"))
+        self.label.setText(_translate("blinkyWindow", "Timer Intervall [ms]"))
 
 
 if __name__ == "__main__":

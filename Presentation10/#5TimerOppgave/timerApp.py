@@ -25,6 +25,7 @@ class timerWindow(QMainWindow):
 
 
         self.timer.timeout.connect(self.onTimer)
+
         self.ui.verticalSlider.valueChanged.connect(self.onSliderChanged)
 
         self.show()
